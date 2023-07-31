@@ -1,0 +1,47 @@
+pipeline{
+   agent any
+   
+   tools{
+       maven 'apache maven 3.9.3'
+   }
+    stages {
+        stages('code clone') {
+	        steps{
+			    git credentialsid: 'git', url: < 'https://github.com/ksrepo9/ks.git' >
+			}
+			}
+
+	stages('Maven Version') {
+	        steps{
+			    sh 'mvn --version'
+			}
+			}
+	stages('Maven Clean') {
+	        steps{
+			    sh 'mvn clean'
+			}
+			}	
+	stages('Maven Validate') {
+	        steps{
+			    sh 'mvn Validate'
+			}
+			}
+	stages('Maven compile') {
+	        steps{
+			    sh 'mvn compile'
+			}
+			}
+	stages('Maven Test') {
+	        steps{
+			    sh 'mvn test'
+			}
+			}
+	stages('Maven Package') {
+	        steps{
+			    sh 'mvn package'
+			}
+			}
+
+	}
+    }
+}
